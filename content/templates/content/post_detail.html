@@ -1,0 +1,69 @@
+<!-- content/post_detail.html -->
+
+{% extends 'content/base.html' %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.caption }}</p>
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+        <p class="mt-2">Posted by: {{ post.user.username }} | {{ post.created_at }}</p>
+
+        <!-- Like Button -->
+        <form id="like-form" method="post" action="{% url 'content:like_post' post_id=post.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary btn-sm">Like</button>
+        </form>
+
+        <!-- Comment Section -->
+        <form id="comment-form" method="post" action="{% url 'content:add_comment' post_id=post.id %}" class="mt-2">
+            {% csrf_token %}
+            <!-- ... Comment form fields ... -->
+            {% crispy form %}
+            <button type="submit" class="btn btn-success btn-sm">Add Comment</button>
+        </form>
+
+        <!-- Display Comments -->
+        <div id="comments" class="mt-3">
+            {% for comment in post.comments.all %}
+                <p class="mb-1"><strong>{{ comment.user.username }}:</strong> {{ comment.text }}
+                    <!-- Delete Comment Link -->
+                    <a href="{% url 'content:delete_comment' comment_id=comment.id %}" class="btn btn-link btn-sm">Delete Comment</a>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // Function to update like, comment, and delete comment buttons
+        function updateButtons() {
+            $.ajax({
+                url: "{% url 'content:post_detail' post_id=post.id %}",  // URL to fetch updated post details
+                type: 'GET',
+                success: function (data) {
+                    $('#like-form').replaceWith($(data).find('#like-form'));
+                    $('#comment-form').replaceWith($(data).find('#comment-form'));
+                    $('#comments').replaceWith($(data).find('#comments'));
+                },
+            });
+        }
+
+        // Use jQuery to handle form submissions and update buttons
+        $(document).ready(function () {
+            $('#like-form, #comment-form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function () {
+                        updateButtons();  // Update buttons after successful form submission
+                    },
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+FROM python:3.11-bullseye
+ENV PYTHONBUFFERED=1
+WORKDIR /instagram_app
+COPY requirements.txt  requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY . .
+
+COPY entrypoint.sh /entrypoint.sh
+
+
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
+
+

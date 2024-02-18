@@ -1,0 +1,36 @@
+{% load static %}
+
+
+<html>
+    <head>
+        <title> Cigman | Dashboard </title>
+        <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sketchy/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'core/styles.css' %}"/>
+
+
+
+    </head>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5" style="width: 500px;">
+        <h1> Dashboard </h1>
+
+        <br>
+
+        <p> Hi {{user}}! </p>
+
+        <a href="{% url 'user-logout' %}"> Logout </a>
+
+
+        
+
+
+    </div>
+
+    <br>
+
+
+
+
+</html> 

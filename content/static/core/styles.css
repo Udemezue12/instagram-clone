@@ -1,0 +1,34 @@
+body { 
+    margin: 0;
+    
+  }
+  
+  
+  
+  
+  .heading1{
+    color: rgb(164, 207, 207);
+  }
+  
+  .btn-class{
+    color: white;
+  }
+  
+  .logo {
+    width: 300px;
+  }
+  
+  .thumbnail {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+  }
+  .navbar .cig{
+    font-size: 2rem;
+    font-weight: bold;
+  } 
+  
+  h2{
+    font-size: 3rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
