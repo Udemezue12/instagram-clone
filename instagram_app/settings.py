@@ -182,7 +182,7 @@ AWS_STORAGE_BUCKET_NAME =config("AWS_STORAGE_BUCKET_NAME")
 # STORAGES = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3StaticStoarage"}}
 AWS_STATIC_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-AWS_STORAGE_BUCKET_NAME = 'your-s3-bucket-name'
+
 AWS_S3_REGION_NAME = 'us-east-2'  
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_ACL = 'public-read'
