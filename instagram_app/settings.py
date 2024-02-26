@@ -187,7 +187,7 @@ AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_DEFAULT_ACL = 'public-read'
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3StaticStoarage"}}
+DEFAULT_FILE_STORAGE = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
 
 
 # STORAGES = {
