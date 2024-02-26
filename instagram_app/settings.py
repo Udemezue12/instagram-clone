@@ -12,12 +12,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
+from decouple import config,  Csv, AutoConfig
 from storages.backends.s3boto3 import S3Boto3Storage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -93,18 +95,35 @@ WSGI_APPLICATION = 'instagram_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# //////MYSQL CONFIG/////
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config('DB_ENGINE'),
+#         'NAME': config('DB_NAME'),
+#         'HOST': config('DB_HOST'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'USER': config('DB_USER'),
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+
+
+# //////// POSTGREE CONFIG////
 DATABASES = {
-    'default': {
-        'ENGINE': config('DB_ENGINE'),
-        'NAME': config('DB_NAME'),
-        'HOST': config('DB_HOST'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'USER': config('DB_USER'),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+     'default': {
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
+
+
 
 
 # Password validation
@@ -205,3 +224,8 @@ DEFAULT_FILE_STORAGE = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3
 
 AWS_S3_FILE_OVERWRITE = False
 ADMIN_MEDIA_PREFIX = '/staticfiles/admin/'
+
+
+
+
+
