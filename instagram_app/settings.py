@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import  config
+from decouple import config
+from storages.backends.s3boto3 import S3Boto3Storage
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'crispy_forms',
+    'storages',
 
 
     'content',
@@ -142,7 +145,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'content/static'),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -169,5 +172,36 @@ SOCIALACCOUNT_PROVIDERS = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'home'  # Replace 'home' with the name of your desired homepage URL
+LOGIN_REDIRECT_URL = 'home'
 
+
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME =config("AWS_STORAGE_BUCKET_NAME")
+
+# STORAGES = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3StaticStoarage"}}
+AWS_STATIC_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_STORAGE_BUCKET_NAME = 'your-s3-bucket-name'
+AWS_S3_REGION_NAME = 'us-east-2'  
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_DEFAULT_ACL = 'public-read'
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = {'staticfiles': {"BACKEND": "storages.backends.s3boto3.S3StaticStoarage"}}
+
+
+# STORAGES = {
+
+#     "default": {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+
+#     },
+#     "staticfiles": {
+#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#     },
+# }
+
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_FILE_OVERWRITE = False
+ADMIN_MEDIA_PREFIX = '/staticfiles/admin/'
