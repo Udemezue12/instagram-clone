@@ -1,10 +1,15 @@
-FROM python:3.11-bullseye
+FROM --platform=linux/amd64 python:3.11-bullseye
 
 
 ENV PYTHONUNBUFFERED=1
 
 
 WORKDIR /instagram_app
+
+
+# COPY Instagram-app/.env Instagram-app/.env_db /my_application/
+
+
 
 
 COPY requirements.txt requirements.txt
@@ -14,5 +19,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . .
 
 
+
 CMD echo "Apply database migrations" && python manage.py migrate && \
     echo "Starting server" && python manage.py runserver 0.0.0.0:8000
+
+
