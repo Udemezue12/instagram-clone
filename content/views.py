@@ -77,7 +77,7 @@ def home(request):
     return render(request, 'content/home.html', {'posts': posts, 'form': form})
 
 
-
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = forms.PostForm(request.POST)
