@@ -3,6 +3,6 @@
 /staticfiles/
 /media/
 .dockerignore
-/docker-entrypoint.sh/
-/docker-compose.yml/
-/wait-for-it.sh/
+docker-entrypoint.sh
+docker-compose.yaml
+wait-for-it.sh
