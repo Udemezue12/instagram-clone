@@ -1,14 +1,19 @@
 FROM python:3.11-bullseye
-ENV PYTHONBUFFERED=1
+
+
+ENV PYTHONUNBUFFERED=1
+ENV SECRET_KEY='django-insecure-$$f+^#kg*(%9*8ee2q5xf3$v+d4(uek91sbr7^a+)l45wc84i6'
+
+
 WORKDIR /instagram_app
-COPY requirements.txt  requirements.txt
+
+
+COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
+
+
 COPY . .
 
-COPY entrypoint.sh /entrypoint.sh
 
-
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT [ "/entrypoint.sh" ]
-
-
+CMD echo "Apply database migrations" && python manage.py migrate && \
+    echo "Starting server" && python manage.py runserver 0.0.0.0:8000
