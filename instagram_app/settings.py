@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'instagram_app.wsgi.application'
 # //////// POSTGREE CONFIG////
 DATABASES = {
      'default': {
-        'ENGINE': config('ENGINE'),
+        'ENGINE': config('ENGINE', default='django.db.backends.sqlite3'),
         'NAME': config('NAME'),
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),

@@ -2,7 +2,6 @@ FROM python:3.11-bullseye
 
 
 ENV PYTHONUNBUFFERED=1
-ENV SECRET_KEY='django-insecure-$$f+^#kg*(%9*8ee2q5xf3$v+d4(uek91sbr7^a+)l45wc84i6'
 
 
 WORKDIR /instagram_app
